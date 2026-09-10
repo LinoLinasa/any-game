@@ -123,8 +123,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="gato.h" />
+    <ClInclude Include="Misfunciones.h" />
+    <ClInclude Include="rata.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="artilleria.cpp" />
     <ClCompile Include="first-game.cpp" />
-    <ClCompile Include="other things.cpp" />
+    <ClCompile Include="gato + ratones game.cpp" />
+    <ClCompile Include="main.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
