@@ -14,8 +14,6 @@ using namespace System;
 
 //aca es para setear el ancho de la pantalla  con valores define 
 
-#define MAPAS 4
-#define CASILLAS 15
 
 void gatoraton();
 void juegovehiculos();
@@ -87,36 +85,68 @@ void limpiar_interior_recuadro(int ancho, int y) {
 	}
 }
 
-void preparado_texto(int alto, int ancho, int x, int y) {
+void preparado_texto(int alto, int ancho, int x, int y,bool idioma) {
 	int mitad_largo = 21;
-	Console::SetCursorPosition((ancho / 2) - mitad_largo, y + 2);
-	cout << " __   __   __   __   _   __   _   __   _   __  ? ";
-	Console::SetCursorPosition((ancho / 2) - mitad_largo, y + 3);
-	cout << "|__) |__) |_   |__) / \\ |__) / \\ |  \\ / \\ (_   ? ";
-	Console::SetCursorPosition((ancho / 2) - mitad_largo, y + 4);
-	cout << "|    | \\  |__  |    |-| | \\  |-| |_/  \\_/ __)  ? ";
+	if (idioma) {
+		Console::SetCursorPosition((ancho / 2) - mitad_largo, y + 2);
+		cout << " __   __   __   __   _   __   _   __   _   __  ? ";
+		Console::SetCursorPosition((ancho / 2) - mitad_largo, y + 3);
+		cout << "|__) |__) |_   |__) / \\ |__) / \\ |  \\ / \\ (_   ? ";
+		Console::SetCursorPosition((ancho / 2) - mitad_largo, y + 4);
+		cout << "|    | \\  |__  |    |-| | \\  |-| |_/  \\_/ __)  ? ";
+	}
+	else {
+		int mitad_largo = 15;
+		Console::SetCursorPosition((ancho / 2) - mitad_largo, y + 2); 
+		cout << " __   __   __   __      __  ? ";
+		Console::SetCursorPosition((ancho / 2) - mitad_largo, y + 3); 
+		cout << "|__) |__  |__| |  \\ \\ /    ? ";
+		Console::SetCursorPosition((ancho / 2) - mitad_largo, y + 4); 
+		cout << "| \\  |__  |  | |__/  |     ? ";
+	}
 }
 
-void listos_texto(int alto, int ancho, int x, int y) {
-	int mitad_largo = 13;
-	Console::SetCursorPosition((ancho / 2) - mitad_largo, y + 2);
-	cout << "|     _   __   ___  _   __  ? ";
-	Console::SetCursorPosition((ancho / 2) - mitad_largo, y + 3);
-	cout << "|     |  (_     |  / \\ (_   ? ";
-	Console::SetCursorPosition((ancho / 2) - mitad_largo, y + 4);
-	cout << "|__   |  __)    |  \\_/ __)  ? ";
+void listos_texto(int alto, int ancho, int x, int y,bool idioma) {
+	if (idioma) {
+		int mitad_largo = 13;
+		Console::SetCursorPosition((ancho / 2) - mitad_largo, y + 2);
+		cout << "|     _   __   ___  _   __  ? ";
+		Console::SetCursorPosition((ancho / 2) - mitad_largo, y + 3);
+		cout << "|     |  (_     |  / \\ (_   ? ";
+		Console::SetCursorPosition((ancho / 2) - mitad_largo, y + 4);
+		cout << "|__   |  __)    |  \\_/ __)  ? ";
+	}
+	else {
+		int mitad_largo = 10;
+		Console::SetCursorPosition((ancho / 2) - mitad_largo, y + 2); 
+		cout << " __   __  ___ ";
+		Console::SetCursorPosition((ancho / 2) - mitad_largo, y + 3); 
+		cout << "/__` |__   |  ";
+		Console::SetCursorPosition((ancho / 2) - mitad_largo, y + 4); 
+		cout << ".__/ |__   |  ";
+	}
 }
 
-void esperen_texto(int alto, int ancho, int x, int y) {
+void esperen_texto(int alto, int ancho, int x, int y,bool idioma) {
 	//ns pq la n parece una d
-	int mitad_largo = 17;
-
-	Console::SetCursorPosition((ancho / 2) - mitad_largo, y + 2);
-	cout << " __   __   __   __   __   __  |\\ | ";
-	Console::SetCursorPosition((ancho / 2) - mitad_largo, y + 3);
-	cout << "|_   (_   |__) |_   |__) |_   | \\| ";
-	Console::SetCursorPosition((ancho / 2) - mitad_largo, y + 4);
-	cout << "|__  __)  |    |__  | \\  |__  |  | ";
+	if (idioma) {
+		int mitad_largo = 17;
+		Console::SetCursorPosition((ancho / 2) - mitad_largo, y + 2);
+		cout << " __   __   __   __   __   __  |\\ | ";
+		Console::SetCursorPosition((ancho / 2) - mitad_largo, y + 3);
+		cout << "|_   (_   |__) |_   |__) |_   | \\| ";
+		Console::SetCursorPosition((ancho / 2) - mitad_largo, y + 4);
+		cout << "|__  __)  |    |__  | \\  |__  |  | ";
+	}
+	else {
+		int mitad_largo = 14;
+		Console::SetCursorPosition((ancho / 2) - mitad_largo, y + 2); 
+		cout << "         __   _  ___ ";
+		Console::SetCursorPosition((ancho / 2) - mitad_largo, y + 3); 
+		cout << "\\  /\\  / /  \\ |   |  ";
+		Console::SetCursorPosition((ancho / 2) - mitad_largo, y + 4); 
+		cout << " \\/  \\/ /----\\|   |  ";
+	}
 }
 
 void dibujar_suelo(int alto, int ancho) {
@@ -164,7 +194,7 @@ void cactus(int x, int y) {
 	Console::ResetColor();
 }
 
-void dibujarescenario_estatico(int alto, int ancho, int& vidasJ1, int& vidasJ2, int altura_base) {
+void dibujarescenario_estatico(int alto, int ancho, int& vidasJ1, int& vidasJ2, int altura_base, bool idioma) {
 	int xcactus0 = ancho / 8;
 	int xcactus1 = ancho - (ancho / 4);
 
@@ -173,15 +203,17 @@ void dibujarescenario_estatico(int alto, int ancho, int& vidasJ1, int& vidasJ2, 
 	cactus(xcactus1, altura_base);
 
 	Console::SetCursorPosition(2, 2);
-	cout << "Vidas J1 (A): ";
+	if (idioma)cout << "Vidas J1 (A): ";
+	else cout << "P1 Lives (A)";
 	for (int i = 0; i < vidasJ1; i++) cout << "()";
 
 	Console::SetCursorPosition(ancho - 26, 2);
-	cout << "Vidas J2 (L): ";
+	if(idioma) cout << "Vidas J2 (L): ";
+	else  cout << "P2 Lives (L): ";
 	for (int i = 0; i < vidasJ2; i++) cout << "()";
 }
 
-int generaroperacion(int ancho, int y_recuadro) {
+int generaroperacion(int ancho, int y_recuadro,bool idioma) {
 	//numeros aleatorios
 	int num1 = (rand() % 15) + 1;
 	int num2 = (rand() % 15) + 1;
@@ -203,36 +235,36 @@ int generaroperacion(int ancho, int y_recuadro) {
 		operador = "x";
 		respuesta = num1 * num2;
 	}
-
 	Console::SetCursorPosition((ancho / 2) - 15, y_recuadro + 3);
-	cout << "Rapido! Cuanto es: " << num1 << " " << operador << " " << num2 << "?: ";
+	if (idioma) cout << "Rapido! Cuanto es: " << num1 << " " << operador << " " << num2 << "?: ";
+	else cout << "Quick! How much is: " << num1 << " " << operador << " " << num2 << "?: ";
 
 	return respuesta;
 }
 
-void jugarronda(int alto, int ancho, int& vidasJ1, int& vidasJ2) {
+void jugarronda(int alto, int ancho, int& vidasJ1, int& vidasJ2, bool idioma) {
 	system("cls");
 
 	int altura_base = alto - 33;
 	if (altura_base < 10) altura_base = 10;
 
-	dibujarescenario_estatico(alto, ancho, vidasJ1, vidasJ2, altura_base);
+	dibujarescenario_estatico(alto, ancho, vidasJ1, vidasJ2, altura_base, idioma);
 
 	int y_recuadro = 1;
 
 	//1
 	recuadro(alto, ancho, 0, y_recuadro);
-	preparado_texto(alto, ancho, 0, y_recuadro);
+	preparado_texto(alto, ancho, 0, y_recuadro,idioma);
 	_sleep(1500);
 
 	// Se agrega la fase "Listos"
 	limpiar_interior_recuadro(ancho, y_recuadro);
-	listos_texto(alto, ancho, 0, y_recuadro);
+	listos_texto(alto, ancho, 0, y_recuadro, idioma);
 	_sleep(1500);
 
 	//2
 	limpiar_interior_recuadro(ancho, y_recuadro);
-	esperen_texto(alto, ancho, 0, y_recuadro);
+	esperen_texto(alto, ancho, 0, y_recuadro, idioma);
 
 	// rand de max 15 seg y min 3 seg
 	int tiempo_tension = (rand() % 13) + 3;
@@ -246,7 +278,8 @@ void jugarronda(int alto, int ancho, int& vidasJ1, int& vidasJ2) {
 	//3
 	limpiar_interior_recuadro(ancho, y_recuadro);
 	Console::SetCursorPosition((ancho / 2) - 15, y_recuadro + 3);
-	cout << "!!! DISPAREN (J1:A / J2:L) !!!";
+	if (idioma) cout << "!!! DISPAREN (J1:A / J2:L) !!!";
+	else cout << "!!! SHOOT (P1:A / P2:L) !!!";
 
 	bool disparo_realizado = false;
 	char tecla_presionada = ' ';
@@ -263,16 +296,17 @@ void jugarronda(int alto, int ancho, int& vidasJ1, int& vidasJ2) {
 
 	Console::SetCursorPosition((ancho / 2) - 15, y_recuadro + 4);
 	if (tecla_presionada == 'a' || tecla_presionada == 'A') {
-		cout << "Jugador 1 apunto primero!";
+		if (idioma) cout <<"Jugador 1 apunto primero!"; else cout << "Player 1 aimed first!";
 	}
 	else {
-		cout << "Jugador 2 apunto primero!";
+
+		if (idioma) cout <<"Jugador 2 apunto primero!"; else cout << "Player 2 aimed first!";
 	}
 	_sleep(1000);
 
 	//4
 	limpiar_interior_recuadro(ancho, y_recuadro);
-	int respuesta_correcta = generaroperacion(ancho, y_recuadro);
+	int respuesta_correcta = generaroperacion(ancho, y_recuadro,idioma);
 	int respuesta_jugador;
 	cin >> respuesta_jugador;
 
@@ -283,7 +317,8 @@ void jugarronda(int alto, int ancho, int& vidasJ1, int& vidasJ2) {
 	// evaluo si el tiro salio bien o le salió por la culata
 	Console::SetCursorPosition((ancho / 2) - 20, y_recuadro + 5);
 	if (respuesta_jugador == respuesta_correcta) {
-		cout << "¡RESPUESTA CORRECTA! Tiro acertado.        ";
+		if (idioma)cout << "¡RESPUESTA CORRECTA! Tiro acertado.    ";
+		else cout << "CORRECT ANSWER! Direct hit.    ";
 		if (tecla_presionada == 'a' || tecla_presionada == 'A') {
 			animacion_disparo(x_J1, x_J2, y_brazo, true);
 			vidasJ2--;
@@ -294,7 +329,8 @@ void jugarronda(int alto, int ancho, int& vidasJ1, int& vidasJ2) {
 		}
 	}
 	else {
-		cout << "¡ERROR! El arma te exploto en la cara.     ";
+		if(idioma) cout << "ERROR! El arma te exploto en la cara.     ";
+		else cout << "ERROR! The gun exploded in your face.     ";
 		if (tecla_presionada == 'a' || tecla_presionada == 'A') {
 			animacion_disparo((ancho / 8) + 14, 0, y_brazo, false);
 			vidasJ1--;
@@ -308,7 +344,7 @@ void jugarronda(int alto, int ancho, int& vidasJ1, int& vidasJ2) {
 	_sleep(1000);
 }
 
-void menu_inicio(int alto, int ancho, int x, int y) {
+void menu_inicio(int alto, int ancho, int x, int y,bool idioma) {
 	//110 - 55
 	system("color 06");
 	system("cls");
@@ -320,27 +356,26 @@ void menu_inicio(int alto, int ancho, int x, int y) {
 	Console::SetCursorPosition((ancho / 2) - 49, y + 6);
 	cout << "| \\  |__  |     |__  |__  \\_/ \\__/ __)     |  | | \\  |  |  | |  | |__  |  |  | \\__ \\__/ __) ";
 
-	Console::SetCursorPosition((ancho / 2) - 20, y + 10);
-	cout << "Es un duelo revolver frente a tu rival,";
-	Console::SetCursorPosition((ancho / 2) - 22, y + 11);
-	cout << "el primero en apuntar tendra que responder";
-	Console::SetCursorPosition((ancho / 2) - 22, y + 12);
-	cout << "una operacion, si lo resuelves correctamente";
-	Console::SetCursorPosition((ancho / 2) - 20, y + 13);
-	cout << "tu tiro es efectivo; caso opuesto el tiro";
-	Console::SetCursorPosition((ancho / 2) - 22, y + 14);
-	cout << "te da a ti mismo y vuelve a iniciar la ronda";
-	Console::SetCursorPosition((ancho / 2) - 15, y + 16);
-	cout << "Cada uno tiene 3 vidas...";
-	Console::SetCursorPosition((ancho / 2) - 10, y + 18);
-	cout << "Suerte Vaquero";
-
-	Console::SetCursorPosition((ancho / 2) - 10, y + 21);
-	cout << "   O_         _O   ";
-	Console::SetCursorPosition((ancho / 2) - 10, y + 22);
-	cout << "  /|>-       -<|\\  ";
-	Console::SetCursorPosition((ancho / 2) - 10, y + 23);
-	cout << "  / \\         / \\  ";
+	if (idioma) {
+		Console::SetCursorPosition((ancho / 2) - 20, y + 10); cout << "Es un duelo revolver frente a tu rival,";
+		Console::SetCursorPosition((ancho / 2) - 22, y + 11); cout << "el primero en apuntar tendra que responder";
+		Console::SetCursorPosition((ancho / 2) - 22, y + 12); cout << "una operacion, si lo resuelves correctamente";
+		Console::SetCursorPosition((ancho / 2) - 20, y + 13); cout << "tu tiro es efectivo; caso opuesto el tiro";
+		Console::SetCursorPosition((ancho / 2) - 22, y + 14); cout << "te da a ti mismo y vuelve a iniciar la ronda";
+		Console::SetCursorPosition((ancho / 2) - 15, y + 16); cout << "Cada uno tiene 3 vidas...";
+		Console::SetCursorPosition((ancho / 2) - 10, y + 18); cout << "Suerte Vaquero";
+		Console::SetCursorPosition((ancho / 2) - 15, alto - 5); cout << "Presione ENTER para continuar";
+	}
+	else {
+		Console::SetCursorPosition((ancho / 2) - 20, y + 10); cout << "It is a revolver duel against your rival,";
+		Console::SetCursorPosition((ancho / 2) - 22, y + 11); cout << "the first to aim will have to answer a math";
+		Console::SetCursorPosition((ancho / 2) - 22, y + 12); cout << "operation. If you solve it correctly your";
+		Console::SetCursorPosition((ancho / 2) - 20, y + 13); cout << "shot is effective; otherwise the shot";
+		Console::SetCursorPosition((ancho / 2) - 22, y + 14); cout << "hits you instead and the round restarts.";
+		Console::SetCursorPosition((ancho / 2) - 15, y + 16); cout << "You each have 3 lives...";
+		Console::SetCursorPosition((ancho / 2) - 10, y + 18); cout << "Good luck Cowboy";
+		Console::SetCursorPosition((ancho / 2) - 15, alto - 5); cout << "Press ENTER to continue";
+	}
 
 	dibujar_suelo(alto, ancho);
 
@@ -352,7 +387,7 @@ void menu_inicio(int alto, int ancho, int x, int y) {
 
 //Jugador& j1, Jugador& j2
 
-void juegoreflejos() {
+void juegoreflejos(bool idioma) {
 	srand(time(NULL));
 	Console::CursorVisible = false;
 
@@ -365,10 +400,10 @@ void juegoreflejos() {
 	int vidasJ1 = 3;
 	int vidasJ2 = 3;
 
-	menu_inicio(alto, ancho, 0, 0);
+	menu_inicio(alto, ancho, 0, 0,idioma);
 
 	while (vidasJ1 > 0 && vidasJ2 > 0) {
-		jugarronda(alto, ancho, vidasJ1, vidasJ2);
+		jugarronda(alto, ancho, vidasJ1, vidasJ2, idioma);
 	}
 
 	system("cls");
@@ -378,14 +413,16 @@ void juegoreflejos() {
 	//	cout << "¡EMPATE! Ambos cayeron.";
 	//}
 	if (vidasJ1 > 0) {
-		cout << "¡GANA EL JUGADOR 1!";
+		if(idioma)cout << "GANA EL JUGADOR 1!";
+		else cout << "PLAYER 1 WINS!";
 		//despues quitarle lo del comentado
 		//j1.minijuegosGanados += 1;
 		//j1.estrellas += 1;
 		//j1.monedas += 10;
 	}
 	else {
-		cout << "¡GANA EL JUGADOR 2!";
+		if (idioma) cout << "GANA EL JUGADOR 2!";
+		else cout << "PLAYER 2 WINS!";
 		//despues quitarle lo del comentado
 		//j2.minijuegosGanados += 1;
 		//j2.estrellas += 1;
@@ -393,7 +430,8 @@ void juegoreflejos() {
 	}
 
 	Console::SetCursorPosition((ancho / 2) - 16, (alto / 2) - 2);
-	cout << "Presione ENTER para salir...";
+	if(idioma) cout << "Presione ENTER para salir...";
+	else cout << "Press ENTER to exit...";
 
 	char tecla = ' ';
 	while (tecla != 13) { // el char de enter...

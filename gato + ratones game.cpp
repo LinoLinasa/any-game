@@ -9,20 +9,36 @@ using namespace std;
 using namespace System;
 
 
-short cantratas()
+short cantratas(bool idioma)
 {
 	short rat;
-	do {
-	cout << endl << "\t\t" << "Menu";
-	cout << endl << "\t" << "Juego del gato y del raton(es)";
-	cout << endl << "\t" << "Defina la cant de ratones que quiere en el juego";
-	cout << endl << "\t" << "Escriba '0' para que la cant sea aleatoria (max 10 ratas)";
-	cout << endl << "\t" << "Presione 11 para salir";
-	cout << endl << "\t" << "Cant. raton(es): ";
-	cin >> rat;
-	} while (rat <= 0 && rat >= 11);
-	if (rat == 0) rat = rand() % 10 + 1;
-	return rat;
+	if (idioma) {
+		short rat;
+		do {
+			cout << endl << "\t\t" << "Menu";
+			cout << endl << "\t" << "Juego del gato y del raton(es)";
+			cout << endl << "\t" << "Defina la cant de ratones que quiere en el juego";
+			cout << endl << "\t" << "Escriba '0' para que la cant sea aleatoria (max 10 ratas)";
+			cout << endl << "\t" << "Presione 11 para salir";
+			cout << endl << "\t" << "Cant. raton(es): ";
+			cin >> rat;
+		} while (rat < 0 || rat > 11);
+		if (rat == 0) rat = rand() % 10 + 1;
+		return rat;
+		}
+		else {
+		do {
+			cout << endl << "\t\t" << "Menu";
+			cout << endl << "\t" << "Cat-and-mouse game";
+			cout << endl << "\t" << "Define the number of mice you want in the game.";
+			cout << endl << "\t" << "Enter '0' for a random quantity (max. 10 rats).";
+			cout << endl << "\t" << "Press '11' to exit.";
+			cout << endl << "\t" << "Qty. of mouse/mice:";
+			cin >> rat;
+		} while (rat < 0 || rat > 11);
+		if (rat == 0) rat = rand() % 10 + 1;
+		return rat;
+		}
 }
 
 //rata** ratacion(rata** arreglo, int& cant, int eliminado) {
@@ -54,7 +70,7 @@ short cantratas()
 //}
 
 
-void gatoraton()
+void gatoraton(bool idioma)
 {
 	srand(time(NULL));
 	Console::CursorVisible = false;
@@ -64,7 +80,8 @@ void gatoraton()
 
 	while (1) {
 		Console::Clear();
-		cantrat = cantratas();
+		cantrat = cantratas(idioma);
+		if (cantrat == 11) break;
 		Console::Clear();
 		int posx1 = 5 + rand() % 76;
 		int posy1 = 3 + rand() % 16;
@@ -78,7 +95,6 @@ void gatoraton()
 			int posy2 = 3 + rand() % 16;
 			ratas[i] = new rata(posx2, posy2);
 		}
-		if (cantrat == 11) break;
 
 		int contador = 0;
 
@@ -161,7 +177,8 @@ void gatoraton()
 
 			// CAMBIO RETO 2: Mostrar el contador en pantalla en la esquina superior
 			Console::SetCursorPosition(2, 1);
-			cout << "Ratones atrapados: " << contador;
+			if(idioma) cout << "Ratones atrapados: " << contador;
+			else cout << "Trapped mice: " << contador;
 
 			_sleep(100);
 

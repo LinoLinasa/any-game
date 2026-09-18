@@ -11,7 +11,7 @@ using namespace System;
 
 //art ascci
 
-void titulo(int ancho, int alto) {
+void titulo(int ancho, int alto,bool idioma) {
     int y_inicio = (alto / 2) - 6;
     int x_titulo = (ancho - 105) / 2;
     if (x_titulo < 0) x_titulo = 0;
@@ -28,22 +28,40 @@ void titulo(int ancho, int alto) {
     }
 
     int ydeltitulo = y_inicio + 6;
+    if (idioma) {
+        Console::SetCursorPosition((ancho - 46) / 2, ydeltitulo);
+        cout << "Rivales, tendreis que enfrentarse entre si con";
+        Console::SetCursorPosition((ancho - 50) / 2, ydeltitulo + 1);
+        cout << "sus canones disparando al castillo del adversario.";
+        Console::SetCursorPosition((ancho - 46) / 2, ydeltitulo + 2);
+        cout << "Su dano dependera de cuando crean que sea buen";
+        Console::SetCursorPosition((ancho - 51) / 2, ydeltitulo + 3);
+        cout << "momento detener su dado de tiro... tendran dos y el";
+        Console::SetCursorPosition((ancho - 36) / 2, ydeltitulo + 4);
+        cout << "resultado sera el dano a infligir...";
+        Console::SetCursorPosition((ancho - 20) / 2, ydeltitulo + 7);
+        cout << "Generales, Suerte :)";
 
-    Console::SetCursorPosition((ancho - 46) / 2, ydeltitulo);
-    cout << "Rivales, tendreis que enfrentarse entre si con";
-    Console::SetCursorPosition((ancho - 50) / 2, ydeltitulo + 1);
-    cout << "sus canones disparando al castillo del adversario.";
-    Console::SetCursorPosition((ancho - 46) / 2, ydeltitulo + 2);
-    cout << "Su dano dependera de cuando crean que sea buen";
-    Console::SetCursorPosition((ancho - 51) / 2, ydeltitulo + 3);
-    cout << "momento detener su dado de tiro... tendran dos y el";
-    Console::SetCursorPosition((ancho - 36) / 2, ydeltitulo + 4);
-    cout << "resultado sera el dano a infligir...";
-    Console::SetCursorPosition((ancho - 20) / 2, ydeltitulo + 7);
-    cout << "Generales, Suerte :)";
+        Console::SetCursorPosition((ancho - 32) / 2, ydeltitulo + 9);
+        cout << "[ PRESIONA CUALQUIER TECLA PARA EMPEZAR ]";
+    }
+    else {
+        Console::SetCursorPosition((ancho - 46) / 2, ydeltitulo);
+        cout << "Rivals, you will have to face each other with";
+        Console::SetCursorPosition((ancho - 50) / 2, ydeltitulo + 1);
+        cout << "your cannons shooting at the opponent's castle.";
+        Console::SetCursorPosition((ancho - 46) / 2, ydeltitulo + 2);
+        cout << "Your damage will depend on when you think it's";
+        Console::SetCursorPosition((ancho - 51) / 2, ydeltitulo + 3);
+        cout << "a good time to stop the dice... you have two and";
+        Console::SetCursorPosition((ancho - 36) / 2, ydeltitulo + 4);
+        cout << "the result will be the damage inflicted...";
+        Console::SetCursorPosition((ancho - 20) / 2, ydeltitulo + 7);
+        cout << "Generals, Good luck :)";
 
-    Console::SetCursorPosition((ancho - 32) / 2, ydeltitulo + 9);
-    cout << "[ PRESIONA CUALQUIER TECLA PARA EMPEZAR ]";
+        Console::SetCursorPosition((ancho - 32) / 2, ydeltitulo + 9);
+        cout << "[ PRESS ANY KEY TO START ]";
+    }
 }
 
 void canon_peq_der(int x, int y) {
@@ -139,7 +157,7 @@ int dibujarSuelo(int ancho, int alto) {
     return inicioSueloY;
 }
 
-void pantallaMultiplicacion(int ancho, int alto, int dado1, int dado2) {
+void pantallaMultiplicacion(int ancho, int alto, int dado1, int dado2,bool idioma) {
     system("cls");
     int total = dado1 * dado2;
 
@@ -149,14 +167,27 @@ void pantallaMultiplicacion(int ancho, int alto, int dado1, int dado2) {
 
 
     //no hay Ñ :(
-    Console::SetCursorPosition((ancho - anchoM1) / 2, alto / 2);
-    cout << "El dano que se va a infligir sera '" << total << "'";
+    if (idioma) {
 
-    Console::SetCursorPosition((ancho - anchoM2) / 2, (alto / 2) + 1);
-    cout << "porque " << dado1 << " * " << dado2 << " = " << total;
+        Console::SetCursorPosition((ancho - anchoM1) / 2, alto / 2);
+        cout << "El dano que se va a infligir sera '" << total << "'";
 
-    Console::SetCursorPosition((ancho - 36) / 2, (alto / 2) + 3);
-    cout << "Presiona una tecla para el ataque...";
+        Console::SetCursorPosition((ancho - anchoM2) / 2, (alto / 2) + 1);
+        cout << "porque " << dado1 << " * " << dado2 << " = " << total;
+
+        Console::SetCursorPosition((ancho - 36) / 2, (alto / 2) + 3);
+        cout << "Presiona una tecla para el ataque...";
+    }
+    else {
+        Console::SetCursorPosition((ancho - anchoM1) / 2, alto / 2);
+        cout << "The damage to be inflicted will be '" << total << "'";
+
+        Console::SetCursorPosition((ancho - anchoM2) / 2, (alto / 2) + 1);
+        cout << "because " << dado1 << " * " << dado2 << " = " << total;
+
+        Console::SetCursorPosition((ancho - 36) / 2, (alto / 2) + 3);
+        cout << "Press one key to launch the attack...";
+    }
     _getch();
 }
 //cubo
@@ -218,7 +249,7 @@ void dibujarStickmanFrame(int x, int y_suelo, int frame) {
     Console::SetCursorPosition(x - 1, y_suelo); cout << "=======";
 }
 
-int ejecutarTurnoMaximizado(int ancho, int alto, int jugador) {
+int ejecutarTurnoMaximizado(int ancho, int alto, int jugador,bool idioma) {
     //si '-' , condicion, sino '|'
     char teclaObjetivo = (jugador == 1) ? 'a' : 'l';
     char teclaObjetivoMayus = (jugador == 1) ? 'A' : 'L';
@@ -229,19 +260,35 @@ int ejecutarTurnoMaximizado(int ancho, int alto, int jugador) {
         system("cls");
 
         // guia
-        Console::SetCursorPosition((ancho - 44) / 2, 2);
-        cout << "=== RONDA DE TIRO: Jugador " << jugador << " ===";
-        Console::SetCursorPosition((ancho - 22) / 2, 3);
-        cout << "TIRO DE DADO " << tiro << " DE 2";
-        Console::SetCursorPosition((ancho - 52) / 2, 4);
-        cout << "Presiona [" << teclaObjetivoMayus << "] en el momento justo para saltar!";
+        if (idioma) {
+            Console::SetCursorPosition((ancho - 44) / 2, 2);
+            cout << "=== RONDA DE TIRO: Jugador " << jugador << " ===";
+            Console::SetCursorPosition((ancho - 22) / 2, 3);
+            cout << "TIRO DE DADO " << tiro << " DE 2";
+            Console::SetCursorPosition((ancho - 52) / 2, 4);
+            cout << "Presiona [" << teclaObjetivoMayus << "] en el momento justo para saltar!";
+            if (tiro == 2) {
+                //NO HAY Ñ
+                Console::SetCursorPosition((ancho - 24) / 2, 5);
+                cout << "Dano Acumulado: " << dado1;
 
-        if (tiro == 2) {
-            //NO HAY Ñ
-            Console::SetCursorPosition((ancho - 24) / 2, 5);
-            cout << "Dano Acumulado: " << dado1;
+            }
+
         }
-
+        else {
+            Console::SetCursorPosition((ancho - 44) / 2, 2);
+            cout << "=== Shouting Round: Player " << jugador << " ===";
+            Console::SetCursorPosition((ancho - 22) / 2, 3);
+            cout << "DICE ROLL " << tiro << " OF 2";
+            Console::SetCursorPosition((ancho - 52) / 2, 4);
+            cout << "Press [" << teclaObjetivoMayus << "] at the right moment to jump!";
+            if (tiro == 2) {
+                //NO HAY Ñ
+                Console::SetCursorPosition((ancho - 24) / 2, 5);
+                cout << "Accumulated Damage: " << dado1;
+            }
+        }
+         
 
 
         int y_suelo = alto - 6;
@@ -303,14 +350,22 @@ int ejecutarTurnoMaximizado(int ancho, int alto, int jugador) {
         if (tiro == 1) dado1 = valorFinaldado;
         else dado2 = valorFinaldado;
 
-
-        Console::SetCursorPosition((ancho - 24) / 2, y_suelo + 2);
-        cout << "Puntaje obtenido: " << valorFinaldado << "!";
-        Console::SetCursorPosition((ancho - 36) / 2, y_suelo + 3);
-        cout << "Presiona una tecla para continuar...";
-        _getch();
+        if (idioma) {
+            Console::SetCursorPosition((ancho - 24) / 2, y_suelo + 2);
+            cout << "Puntaje obtenido: " << valorFinaldado << "!";
+            Console::SetCursorPosition((ancho - 36) / 2, y_suelo + 3);
+            cout << "Presiona una tecla para continuar...";
+            _getch();
+        }
+        else {
+            Console::SetCursorPosition((ancho - 24) / 2, y_suelo + 2);
+            cout << "Score obtained: " << valorFinaldado << "!";
+            Console::SetCursorPosition((ancho - 36) / 2, y_suelo + 3);
+            cout << "Press any key to continue...";
+        }
+            _getch();
     }
-    pantallaMultiplicacion(ancho, alto, dado1, dado2);
+    pantallaMultiplicacion(ancho, alto, dado1, dado2,idioma);
     return dado1 * dado2;
 }
 
@@ -334,13 +389,18 @@ void dibujarBarraVida(int x, int y, string etiqueta, int vida) {
     cout << "] " << vida << " HP";
 }
 
-void dibujarCampoBatalla(int ancho, int alto, int vida1, int vida2) {
+void dibujarCampoBatalla(int ancho, int alto, int vida1, int vida2,bool idioma) {
     system("cls");
 
     // barras de vida
-    dibujarBarraVida(4, 2, "CASTILLO J1", vida1);
-    dibujarBarraVida(ancho - 32, 2, "CASTILLO J2", vida2);
-
+    if (idioma) {
+        dibujarBarraVida(4, 2, "CASTILLO J1", vida1);
+        dibujarBarraVida(ancho - 32, 2, "CASTILLO J2", vida2);
+    }
+    else {
+        dibujarBarraVida(4, 2, "CASTLE P1", vida1);
+        dibujarBarraVida(ancho - 32, 2, "CASTLE P2", vida2);
+    }
     int y_suelo = dibujarSuelo(ancho, alto);
 
     //castillos
@@ -369,7 +429,7 @@ void dibujarCampoBatalla(int ancho, int alto, int vida1, int vida2) {
 
 //--------------------------------------------------------------------------------------------------------------------------------------------
 
-void animarProyectilYExplosion(int ancho, int alto, int atacante, int v1, int v2) {
+void animarProyectilYExplosion(int ancho, int alto, int atacante, int v1, int v2,bool idioma) {
     int y_suelo = alto - 5;
     int y_castillo = y_suelo - 6;
     int x_origen, x_destino;
@@ -409,16 +469,16 @@ void animarProyectilYExplosion(int ancho, int alto, int atacante, int v1, int v2
     explosion(x_impacto, y_castillo);
     _sleep(800);
 
-    dibujarCampoBatalla(ancho, alto, v1, v2);
+    dibujarCampoBatalla(ancho, alto, v1, v2,idioma);
 }
 
 //
 //--------------------------------------------------------------------------------------------------------------------------------------------
 //menu + animacion
 
-void menu(int ancho, int alto) {
+void menu(int ancho, int alto,bool idioma) {
     system("cls");
-    titulo(ancho, alto);
+    titulo(ancho, alto,idioma);
 
     int y_suelo = dibujarSuelo(ancho, alto);
     int x_castillo_izq = 2, x_castillo_der = ancho - 20;
@@ -473,7 +533,7 @@ void menu(int ancho, int alto) {
     _getch();
 }
 
-void juego_artilleria() {
+void juego_artilleria(bool idioma) {
     srand(time(NULL));
     Console::CursorVisible = false;
 
@@ -481,7 +541,7 @@ void juego_artilleria() {
     int ancho = Console::WindowWidth;
 
 
-    menu(ancho, alto);
+    menu(ancho, alto,idioma);
 
     //VIDA DE LOS BICHOS
     int saludJ1 = 100;
@@ -497,36 +557,57 @@ void juego_artilleria() {
                 tecla = getch();
             }
         }
-        dibujarCampoBatalla(ancho, alto, saludJ1, saludJ2);
 
-        Console::SetCursorPosition((ancho - 32) / 2, 5);
-        cout << ">>> TURNO ACTUAL: JUGADOR " << turno << " <<<";
-        Console::SetCursorPosition((ancho - 40) / 2, 6);
-        cout << "Presiona cualquier tecla para ir a tu cubo...";
+        dibujarCampoBatalla(ancho, alto, saludJ1, saludJ2,idioma);
+        if (idioma) {
+            Console::SetCursorPosition((ancho - 32) / 2, 5);
+            cout << ">>> TURNO ACTUAL: JUGADOR " << turno << " <<<";
+            Console::SetCursorPosition((ancho - 40) / 2, 6);
+            cout << "Presiona cualquier tecla para ir a tu cubo...";
+        }
+        else {
+            Console::SetCursorPosition((ancho - 32) / 2, 5);
+            cout << ">>> CURRENT TURN: PLAYER " << turno << " <<<";
+            Console::SetCursorPosition((ancho - 40) / 2, 6);
+            cout << "Press any key to go to your cube....";
+        }
         _getch();
 
         //"maximiza" la perspectiva del palitos
-        int danoTotalTurno = ejecutarTurnoMaximizado(ancho, alto, turno);
+        int danoTotalTurno = ejecutarTurnoMaximizado(ancho, alto, turno,idioma);
 
         //regresa al mapa principal
         if (turno == 1) {
             saludJ2 -= danoTotalTurno;
             if (saludJ2 < 0) saludJ2 = 0;
-            dibujarCampoBatalla(ancho, alto, saludJ1, saludJ2);
-
-            Console::SetCursorPosition((ancho - 42) / 2, 5);
-            cout << "Fuego! Proyectil de J1 causa " << danoTotalTurno << " de dano.";
-            animarProyectilYExplosion(ancho, alto, 1, saludJ1, saludJ2);
+            dibujarCampoBatalla(ancho, alto, saludJ1, saludJ2,idioma);
+            if (idioma) {
+                Console::SetCursorPosition((ancho - 42) / 2, 5);
+                cout << "Fuego! Proyectil de J1 causa " << danoTotalTurno << " de dano.";
+                animarProyectilYExplosion(ancho, alto, 1, saludJ1, saludJ2, idioma);
+            }
+            else {
+                Console::SetCursorPosition((ancho - 42) / 2, 5);
+                cout << "Fire! Player 1's projectile deals " << danoTotalTurno << " damage.";
+                animarProyectilYExplosion(ancho, alto, 1, saludJ1, saludJ2, idioma);
+            }
             turno = 2; // cede el turno
         }
         else {
             saludJ1 -= danoTotalTurno;
             if (saludJ1 < 0) saludJ1 = 0;
-            dibujarCampoBatalla(ancho, alto, saludJ1, saludJ2);
+            dibujarCampoBatalla(ancho, alto, saludJ1, saludJ2, idioma);
 
-            Console::SetCursorPosition((ancho - 42) / 2, 5);
-            cout << "Fuego! Proyectil de J2 causa " << danoTotalTurno << " de dano.";
-            animarProyectilYExplosion(ancho, alto, 2, saludJ1, saludJ2);
+            if (idioma) {
+                Console::SetCursorPosition((ancho - 42) / 2, 5);
+                cout << "Fuego! Proyectil de J2 causa " << danoTotalTurno << " de dano.";
+                animarProyectilYExplosion(ancho, alto, 2, saludJ1, saludJ2, idioma);
+            }
+            else {
+                Console::SetCursorPosition((ancho - 42) / 2, 5);
+                cout << "Fire! Player 2's projectile deals " << danoTotalTurno << " damage.";
+                animarProyectilYExplosion(ancho, alto, 2, saludJ1, saludJ2, idioma);
+            }
             turno = 1; // cede el turno
         }
     }
@@ -554,9 +635,14 @@ void juego_artilleria() {
     }
     Console::SetCursorPosition((ancho - 30) / 2, alto / 2 + 1);
     cout << "==============================";
-
-    Console::SetCursorPosition((ancho - 38) / 2, alto / 2 + 3);
-    cout << "Presiona cualquier tecla para finalizar...";
+    if (idioma) {
+        Console::SetCursorPosition((ancho - 38) / 2, alto / 2 + 3);
+        cout << "Presiona cualquier tecla para finalizar...";
+    }
+    else {
+        Console::SetCursorPosition((ancho - 38) / 2, alto / 2 + 3);
+        cout << "Press any key to finish...";
+    }
     _getch();
 }
 
